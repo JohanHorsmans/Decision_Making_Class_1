@@ -99,34 +99,6 @@ ggplot(data,aes(data$Flock.size, data$Decision.making.time..sec.)) +
 
 ![](Class-1-code_files/figure-gfm/unnamed-chunk-4-1.png)<!-- -->
 
-Define function for makking prettier plot:
-
-``` r
-ggplotRegression <- function (fit) {
-
-require(ggplot2)
-
-ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1],colour=data$deviation)) + 
-  geom_point() +
-  stat_smooth(method = "lm", col = "#7ad2f6") +
-  labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
-                     "Intercept =",signif(fit$coef[[1]],5 ),
-                     " Slope =",signif(fit$coef[[2]], 5),
-                     " P =",signif(summary(fit)$coef[2,4], 5)))
-}
-```
-
-Create the improved
-plot:
-
-``` r
-ggplotRegression(fit) + theme_economist() + xlab("Flock Size") + ylab("Decision Making Time (S)") + theme(plot.title = element_text(size=10)) 
-```
-
-    ## `geom_smooth()` using formula 'y ~ x'
-
-![](Class-1-code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
-
 Create a new and improved model, seeing if initial deviation explains
 any
 variance:
@@ -157,3 +129,31 @@ summary(fit2)
     ## Residual standard error: 132.9 on 36 degrees of freedom
     ## Multiple R-squared:  0.4237, Adjusted R-squared:  0.3917 
     ## F-statistic: 13.23 on 2 and 36 DF,  p-value: 4.919e-05
+
+Define function for makking prettier plot:
+
+``` r
+ggplotRegression <- function (fit) {
+
+require(ggplot2)
+
+ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1],colour=data$deviation)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "#7ad2f6") +
+  labs(title = paste("Adj R2 = ",signif(summary(fit2)$adj.r.squared, 5),
+                     "Intercept =",signif(fit2$coef[[1]],5 ),
+                     " Slope =",signif(fit2$coef[[2]], 5),
+                     " P =",signif(summary(fit2)$coef[2,4], 5)))
+}
+```
+
+Create the improved
+plot:
+
+``` r
+ggplotRegression(fit) + theme_economist() + xlab("Flock Size") + ylab("Decision Making Time (S)") + theme(plot.title = element_text(size=10)) 
+```
+
+    ## `geom_smooth()` using formula 'y ~ x'
+
+![](Class-1-code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
