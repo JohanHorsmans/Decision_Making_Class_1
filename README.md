@@ -8,4 +8,4 @@ A difficult element of reproducing the study was matching the authors' interpret
 
 This is our improved plot:
 
-![](Class-1-code_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](Class-1-code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
