@@ -7,4 +7,5 @@ The authors provided deviation from home direction (in degrees) in the data, and
 A difficult element of reproducing the study was matching the authors' interpretation of an 'exponential' increase in decision making time as flock size increased, as the data seemed to better fit a linear increase. This was a good example for us to see the need to be critical and challenge our own interpretations of the data. Therefore, we decided to carry out the analysis with a linear regression model.
 
 This is our improved plot:
+
 ![](Class-1-code_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
