@@ -125,7 +125,7 @@ ggplotRegression(fit) + theme_economist() + xlab("Flock Size") + ylab("Decision 
 
     ## `geom_smooth()` using formula 'y ~ x'
 
-![](Class-1-code_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](Class-1-code_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 Create a new and improved model, seeing if initial deviation explains
 any
