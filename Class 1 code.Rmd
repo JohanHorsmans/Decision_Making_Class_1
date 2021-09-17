@@ -1,0 +1,79 @@
+---
+title: "Class 1"
+author: "Johan Horsmans"
+date: "10/9/2021"
+output: github_document
+---
+# Decision Making Class 1:
+
+### For more information see ```readme.md``` in the repository.
+
+Loading packages:
+```{r}
+library(ggplot2) #For plotting.
+library(ggthemes) #For pretty plots.
+library(tidyverse) #For data manipulation.
+```
+
+Loading data:
+```{r}
+# Load data:
+data<-read.delim("Data.txt")
+
+# Transform "site" to a factor variable:
+data$Site<-as.factor(data$Site)
+
+# Create the aggregated deviation metric:
+data = data %>%
+    mutate(deviation = ifelse(abs(data$Homing.direction..degrees.) > 20, "strong", "weak"))
+
+# Transform the deviation metric to a factor:
+data$deviation<-as.factor(data$deviation)
+```
+
+Fit linear model:
+```{r}
+set.seed(12)
+
+fit <- lm(data$Decision.making.time..sec. ~ data$Flock.size, data=data)
+summary(fit)
+```
+
+
+Make plots:
+```{r}
+ggplot(data,aes(data$Flock.size, data$Decision.making.time..sec.)) +
+  geom_point() + 
+  geom_smooth(method='lm', formula= y~x, colour = "red") + theme_economist() + xlab("Flock Size") + ylab("Decision Making Time (S)")
+```
+
+Define function for makking prettier plot:
+```{r}
+ggplotRegression <- function (fit) {
+
+require(ggplot2)
+
+ggplot(fit$model, aes_string(x = names(fit$model)[2], y = names(fit$model)[1],colour=data$deviation)) + 
+  geom_point() +
+  stat_smooth(method = "lm", col = "#7ad2f6") +
+  labs(title = paste("Adj R2 = ",signif(summary(fit)$adj.r.squared, 5),
+                     "Intercept =",signif(fit$coef[[1]],5 ),
+                     " Slope =",signif(fit$coef[[2]], 5),
+                     " P =",signif(summary(fit)$coef[2,4], 5)))
+}
+```
+
+Create the improved plot: 
+```{r}
+ggplotRegression(fit) + theme_economist() + xlab("Flock Size") + ylab("Decision Making Time (S)") + theme(plot.title = element_text(size=10)) 
+
+```
+
+Create a new and improved model, seeing if initial deviation explains any variance:
+```{r}
+fit2 <- lm(data$Decision.making.time..sec.~data$Flock.size + data$Homing.direction..degrees.^2)
+
+summary(fit2)
+```
+
+
